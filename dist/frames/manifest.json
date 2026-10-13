@@ -1,0 +1,393 @@
+{
+  "count": 64,
+  "stepDegrees": 5.625,
+  "angleOrigin": "up",
+  "clockwise": true,
+  "center": "/frames-web/center.webp",
+  "frames": [
+    {
+      "index": 0,
+      "angle": 0.0,
+      "src": "/frames-web/frame-000.webp",
+      "sourceFrame": 34
+    },
+    {
+      "index": 1,
+      "angle": 5.625,
+      "src": "/frames-web/frame-001.webp",
+      "sourceFrame": 37
+    },
+    {
+      "index": 2,
+      "angle": 11.25,
+      "src": "/frames-web/frame-002.webp",
+      "sourceFrame": 41
+    },
+    {
+      "index": 3,
+      "angle": 16.875,
+      "src": "/frames-web/frame-003.webp",
+      "sourceFrame": 44
+    },
+    {
+      "index": 4,
+      "angle": 22.5,
+      "src": "/frames-web/frame-004.webp",
+      "sourceFrame": 48
+    },
+    {
+      "index": 5,
+      "angle": 28.125,
+      "src": "/frames-web/frame-005.webp",
+      "sourceFrame": 51
+    },
+    {
+      "index": 6,
+      "angle": 33.75,
+      "src": "/frames-web/frame-006.webp",
+      "sourceFrame": 54
+    },
+    {
+      "index": 7,
+      "angle": 39.375,
+      "src": "/frames-web/frame-007.webp",
+      "sourceFrame": 58
+    },
+    {
+      "index": 8,
+      "angle": 45.0,
+      "src": "/frames-web/frame-008.webp",
+      "sourceFrame": 61
+    },
+    {
+      "index": 9,
+      "angle": 50.625,
+      "src": "/frames-web/frame-009.webp",
+      "sourceFrame": 64
+    },
+    {
+      "index": 10,
+      "angle": 56.25,
+      "src": "/frames-web/frame-010.webp",
+      "sourceFrame": 67
+    },
+    {
+      "index": 11,
+      "angle": 61.875,
+      "src": "/frames-web/frame-011.webp",
+      "sourceFrame": 70
+    },
+    {
+      "index": 12,
+      "angle": 67.5,
+      "src": "/frames-web/frame-012.webp",
+      "sourceFrame": 73
+    },
+    {
+      "index": 13,
+      "angle": 73.125,
+      "src": "/frames-web/frame-013.webp",
+      "sourceFrame": 75
+    },
+    {
+      "index": 14,
+      "angle": 78.75,
+      "src": "/frames-web/frame-014.webp",
+      "sourceFrame": 78
+    },
+    {
+      "index": 15,
+      "angle": 84.375,
+      "src": "/frames-web/frame-015.webp",
+      "sourceFrame": 81
+    },
+    {
+      "index": 16,
+      "angle": 90.0,
+      "src": "/frames-web/frame-016.webp",
+      "sourceFrame": 84
+    },
+    {
+      "index": 17,
+      "angle": 95.625,
+      "src": "/frames-web/frame-017.webp",
+      "sourceFrame": 87
+    },
+    {
+      "index": 18,
+      "angle": 101.25,
+      "src": "/frames-web/frame-018.webp",
+      "sourceFrame": 90
+    },
+    {
+      "index": 19,
+      "angle": 106.875,
+      "src": "/frames-web/frame-019.webp",
+      "sourceFrame": 92
+    },
+    {
+      "index": 20,
+      "angle": 112.5,
+      "src": "/frames-web/frame-020.webp",
+      "sourceFrame": 95
+    },
+    {
+      "index": 21,
+      "angle": 118.125,
+      "src": "/frames-web/frame-021.webp",
+      "sourceFrame": 98
+    },
+    {
+      "index": 22,
+      "angle": 123.75,
+      "src": "/frames-web/frame-022.webp",
+      "sourceFrame": 101
+    },
+    {
+      "index": 23,
+      "angle": 129.375,
+      "src": "/frames-web/frame-023.webp",
+      "sourceFrame": 103
+    },
+    {
+      "index": 24,
+      "angle": 135.0,
+      "src": "/frames-web/frame-024.webp",
+      "sourceFrame": 106
+    },
+    {
+      "index": 25,
+      "angle": 140.625,
+      "src": "/frames-web/frame-025.webp",
+      "sourceFrame": 109
+    },
+    {
+      "index": 26,
+      "angle": 146.25,
+      "src": "/frames-web/frame-026.webp",
+      "sourceFrame": 113
+    },
+    {
+      "index": 27,
+      "angle": 151.875,
+      "src": "/frames-web/frame-027.webp",
+      "sourceFrame": 116
+    },
+    {
+      "index": 28,
+      "angle": 157.5,
+      "src": "/frames-web/frame-028.webp",
+      "sourceFrame": 119
+    },
+    {
+      "index": 29,
+      "angle": 163.125,
+      "src": "/frames-web/frame-029.webp",
+      "sourceFrame": 122
+    },
+    {
+      "index": 30,
+      "angle": 168.75,
+      "src": "/frames-web/frame-030.webp",
+      "sourceFrame": 126
+    },
+    {
+      "index": 31,
+      "angle": 174.375,
+      "src": "/frames-web/frame-031.webp",
+      "sourceFrame": 129
+    },
+    {
+      "index": 32,
+      "angle": 180.0,
+      "src": "/frames-web/frame-032.webp",
+      "sourceFrame": 132
+    },
+    {
+      "index": 33,
+      "angle": 185.625,
+      "src": "/frames-web/frame-033.webp",
+      "sourceFrame": 135
+    },
+    {
+      "index": 34,
+      "angle": 191.25,
+      "src": "/frames-web/frame-034.webp",
+      "sourceFrame": 139
+    },
+    {
+      "index": 35,
+      "angle": 196.875,
+      "src": "/frames-web/frame-035.webp",
+      "sourceFrame": 142
+    },
+    {
+      "index": 36,
+      "angle": 202.5,
+      "src": "/frames-web/frame-036.webp",
+      "sourceFrame": 145
+    },
+    {
+      "index": 37,
+      "angle": 208.125,
+      "src": "/frames-web/frame-037.webp",
+      "sourceFrame": 148
+    },
+    {
+      "index": 38,
+      "angle": 213.75,
+      "src": "/frames-web/frame-038.webp",
+      "sourceFrame": 152
+    },
+    {
+      "index": 39,
+      "angle": 219.375,
+      "src": "/frames-web/frame-039.webp",
+      "sourceFrame": 155
+    },
+    {
+      "index": 40,
+      "angle": 225.0,
+      "src": "/frames-web/frame-040.webp",
+      "sourceFrame": 158
+    },
+    {
+      "index": 41,
+      "angle": 230.625,
+      "src": "/frames-web/frame-041.webp",
+      "sourceFrame": 161
+    },
+    {
+      "index": 42,
+      "angle": 236.25,
+      "src": "/frames-web/frame-042.webp",
+      "sourceFrame": 165
+    },
+    {
+      "index": 43,
+      "angle": 241.875,
+      "src": "/frames-web/frame-043.webp",
+      "sourceFrame": 168
+    },
+    {
+      "index": 44,
+      "angle": 247.5,
+      "src": "/frames-web/frame-044.webp",
+      "sourceFrame": 171
+    },
+    {
+      "index": 45,
+      "angle": 253.125,
+      "src": "/frames-web/frame-045.webp",
+      "sourceFrame": 174
+    },
+    {
+      "index": 46,
+      "angle": 258.75,
+      "src": "/frames-web/frame-046.webp",
+      "sourceFrame": 178
+    },
+    {
+      "index": 47,
+      "angle": 264.375,
+      "src": "/frames-web/frame-047.webp",
+      "sourceFrame": 181
+    },
+    {
+      "index": 48,
+      "angle": 270.0,
+      "src": "/frames-web/frame-048.webp",
+      "sourceFrame": 184
+    },
+    {
+      "index": 49,
+      "angle": 275.625,
+      "src": "/frames-web/frame-049.webp",
+      "sourceFrame": 188
+    },
+    {
+      "index": 50,
+      "angle": 281.25,
+      "src": "/frames-web/frame-050.webp",
+      "sourceFrame": 191
+    },
+    {
+      "index": 51,
+      "angle": 286.875,
+      "src": "/frames-web/frame-051.webp",
+      "sourceFrame": 195
+    },
+    {
+      "index": 52,
+      "angle": 292.5,
+      "src": "/frames-web/frame-052.webp",
+      "sourceFrame": 198
+    },
+    {
+      "index": 53,
+      "angle": 298.125,
+      "src": "/frames-web/frame-053.webp",
+      "sourceFrame": 202
+    },
+    {
+      "index": 54,
+      "angle": 303.75,
+      "src": "/frames-web/frame-054.webp",
+      "sourceFrame": 205
+    },
+    {
+      "index": 55,
+      "angle": 309.375,
+      "src": "/frames-web/frame-055.webp",
+      "sourceFrame": 209
+    },
+    {
+      "index": 56,
+      "angle": 315.0,
+      "src": "/frames-web/frame-056.webp",
+      "sourceFrame": 212
+    },
+    {
+      "index": 57,
+      "angle": 320.625,
+      "src": "/frames-web/frame-057.webp",
+      "sourceFrame": 214
+    },
+    {
+      "index": 58,
+      "angle": 326.25,
+      "src": "/frames-web/frame-058.webp",
+      "sourceFrame": 215
+    },
+    {
+      "index": 59,
+      "angle": 331.875,
+      "src": "/frames-web/frame-059.webp",
+      "sourceFrame": 217
+    },
+    {
+      "index": 60,
+      "angle": 337.5,
+      "src": "/frames-web/frame-060.webp",
+      "sourceFrame": 219
+    },
+    {
+      "index": 61,
+      "angle": 343.125,
+      "src": "/frames-web/frame-061.webp",
+      "sourceFrame": 220
+    },
+    {
+      "index": 62,
+      "angle": 348.75,
+      "src": "/frames-web/frame-062.webp",
+      "sourceFrame": 222
+    },
+    {
+      "index": 63,
+      "angle": 354.375,
+      "src": "/frames-web/frame-063.webp",
+      "sourceFrame": 223
+    }
+  ]
+}
