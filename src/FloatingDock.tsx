@@ -1,103 +1,150 @@
-import { useEffect, useRef, useState, type MouseEvent, type PointerEvent } from "react";
+import { Mood } from "./HeadTracker";
+import { Volume2, VolumeX, Flame, Heart, Moon, Sun, Sparkles, Compass } from "lucide-react";
+import { sound } from "./sound";
 
-const items = [
-  { label: "Home", href: "#top", icon: "⌂" },
-  { label: "Moods", href: "#work", icon: "◉", badge: "9" },
-  { label: "Magic", href: "#magic", icon: "✦", badge: "4" },
-  { label: "Cards", href: "#cards", icon: "▱", badge: "3" },
-  { label: "Check-in", href: "#check-in", icon: "✓", badge: "4" },
-  { label: "Effects", href: "#effects", icon: "⌁", badge: "3" },
-  { label: "Treats", href: "#contact", icon: "♡" },
-];
+export type Theme = "warm" | "midnight" | "sage";
 
-const goTo = (href: string) => {
-  document.querySelector(href)?.scrollIntoView({ behavior: "smooth", block: "start" });
+type Props = {
+  mood: Mood;
+  onMoodChange: (m: Mood) => void;
+  isLaser: boolean;
+  onLaserToggle: () => void;
+  soundEnabled: boolean;
+  onSoundToggle: () => void;
+  theme: Theme;
+  onThemeChange: (t: Theme) => void;
+  onPet: () => void;
+  onOpenCode: () => void;
 };
 
-export default function FloatingDock() {
-  const [compact, setCompact] = useState(false);
-  const [launching, setLaunching] = useState("");
-  const [pinned, setPinned] = useState<string[]>([]);
-  const [menu, setMenu] = useState<{ x: number; y: number; label: string; href: string } | null>(null);
-  const dock = useRef<HTMLElement>(null);
+const MOODS: { id: Mood; label: string; icon: string; desc: string }[] = [
+  { id: "grumpy", label: "Grumpy", icon: "😼", desc: "Unbothered & skeptical" },
+  { id: "curious", label: "Curious", icon: "😺", desc: "Attentive & focused" },
+  { id: "playful", label: "Playful", icon: "😸", desc: "Fast & reactive" },
+  { id: "sleepy", label: "Sleepy", icon: "😴", desc: "Drowsy & slow" },
+];
 
-  useEffect(() => {
-    const onScroll = () => setCompact(window.scrollY > 120);
-    const close = () => setMenu(null);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("pointerdown", close);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("pointerdown", close);
-    };
-  }, []);
-
-  const magnify = (event: PointerEvent<HTMLElement>) => {
-    dock.current?.querySelectorAll<HTMLElement>(".dock-item").forEach((item) => {
-      const box = item.getBoundingClientRect();
-      const distance = Math.abs(event.clientX - (box.left + box.width / 2));
-      const influence = Math.max(0, 1 - distance / 120);
-      item.style.setProperty("--dock-scale", `${1 + influence * 0.48}`);
-      item.style.setProperty("--dock-lift", `${-influence * 10}px`);
-    });
-  };
-
-  const reset = () => dock.current?.querySelectorAll<HTMLElement>(".dock-item").forEach((item) => {
-    item.style.removeProperty("--dock-scale");
-    item.style.removeProperty("--dock-lift");
-  });
-
-  const launch = (label: string, href: string) => {
-    setLaunching(label);
-    goTo(href);
-    window.setTimeout(() => setLaunching(""), 650);
-  };
-
-  const openMenu = (event: MouseEvent, label: string, href: string) => {
-    event.preventDefault();
-    setMenu({ x: Math.max(8, Math.min(event.clientX, window.innerWidth - 190)), y: Math.max(8, Math.min(event.clientY + 8, window.innerHeight - 128)), label, href });
-  };
-
+export default function FloatingDock({
+  mood,
+  onMoodChange,
+  isLaser,
+  onLaserToggle,
+  soundEnabled,
+  onSoundToggle,
+  theme,
+  onThemeChange,
+  onPet,
+  onOpenCode,
+}: Props) {
   return (
-    <>
-      <nav
-        ref={dock}
-        className={`mochi-dock${compact ? " is-compact" : ""}`}
-        aria-label="Explore Mochi"
-        onPointerMove={magnify}
-        onPointerLeave={reset}
-      >
-        <span className="dock-brand" aria-hidden="true">MOCHI</span>
-        <div className="dock-items">
-          {items.map((item) => (
-            <a
-              className={`dock-item${launching === item.label ? " is-launching" : ""}`}
-              key={item.label}
-              href={item.href}
-              onClick={(event) => { event.preventDefault(); launch(item.label, item.href); }}
-              onContextMenu={(event) => openMenu(event, item.label, item.href)}
-              aria-label={`Go to ${item.label}`}
+    <aside className="dock-container reveal" aria-label="Interactive Controls">
+      <div className="dock-inner">
+        {/* Mood Selector Segment */}
+        <div className="dock-segment" role="radiogroup" aria-label="Cat Mood">
+          {MOODS.map((m) => (
+            <button
+              key={m.id}
+              role="radio"
+              aria-checked={mood === m.id}
+              onClick={() => {
+                sound.playClick(1.1);
+                onMoodChange(m.id);
+              }}
+              className={`dock-btn ${mood === m.id ? "is-active" : ""}`}
+              title={`${m.label} Mood: ${m.desc}`}
+              data-hover
             >
-              <span className="dock-icon" aria-hidden="true">{item.icon}</span>
-              <span className="dock-label">{item.label}</span>
-              {item.badge && <span className="dock-badge">{item.badge}</span>}
-              {pinned.includes(item.label) && <span className="dock-pin" aria-hidden="true" />}
-            </a>
+              <span className="dock-emoji">{m.icon}</span>
+              <span className="dock-label">{m.label}</span>
+            </button>
           ))}
         </div>
-        <span className="dock-status"><i /> ONLINE</span>
-      </nav>
-      {menu && (
-        <div className="dock-menu" style={{ left: menu.x, top: menu.y }} onPointerDown={(event) => event.stopPropagation()}>
-          <strong>{menu.label}</strong>
-          <button onClick={() => { launch(menu.label, menu.href); setMenu(null); }}>Open section <span>↗</span></button>
-          <button onClick={() => {
-            setPinned((current) => current.includes(menu.label) ? current.filter((name) => name !== menu.label) : [...current, menu.label]);
-            setMenu(null);
-          }}>{pinned.includes(menu.label) ? "Unpin from dock" : "Pin to dock"} <span>⌘</span></button>
+
+        <div className="dock-divider" />
+
+        {/* Action Buttons: Laser, Pet, Sound */}
+        <div className="dock-segment">
+          {/* Laser Pointer Mode */}
+          <button
+            onClick={() => {
+              sound.playLaserBlip();
+              onLaserToggle();
+            }}
+            className={`dock-btn dock-btn-laser ${isLaser ? "is-active" : ""}`}
+            title="Toggle Laser Pointer [L]"
+            data-hover
+          >
+            <Flame className={`w-3.5 h-3.5 ${isLaser ? "text-red-400 animate-pulse" : ""}`} />
+            <span className="dock-label">Laser [L]</span>
+          </button>
+
+          {/* Pet Mochi Button */}
+          <button
+            onClick={() => {
+              onPet();
+            }}
+            className="dock-btn dock-btn-pet"
+            title="Pet Mochi [Space]"
+            data-hover
+          >
+            <Heart className="w-3.5 h-3.5 text-rose-400 group-hover:scale-125 transition-transform" />
+            <span className="dock-label">Pet</span>
+          </button>
+
+          {/* Sound Toggle */}
+          <button
+            onClick={() => {
+              onSoundToggle();
+            }}
+            className={`dock-btn ${soundEnabled ? "is-active" : ""}`}
+            title={soundEnabled ? "Mute audio [M]" : "Unmute audio [M]"}
+            data-hover
+          >
+            {soundEnabled ? (
+              <Volume2 className="w-3.5 h-3.5 text-amber-300" />
+            ) : (
+              <VolumeX className="w-3.5 h-3.5 opacity-50" />
+            )}
+            <span className="dock-label">{soundEnabled ? "FX On" : "Muted"}</span>
+          </button>
         </div>
-      )}
-    </>
+
+        <div className="dock-divider" />
+
+        {/* Theme & Code */}
+        <div className="dock-segment">
+          {/* Theme switcher */}
+          <button
+            onClick={() => {
+              sound.playClick(1.0);
+              const next: Theme = theme === "warm" ? "midnight" : theme === "midnight" ? "sage" : "warm";
+              onThemeChange(next);
+            }}
+            className="dock-btn"
+            title="Cycle Lighting Theme"
+            data-hover
+          >
+            {theme === "warm" && <Sun className="w-3.5 h-3.5 text-amber-300" />}
+            {theme === "midnight" && <Moon className="w-3.5 h-3.5 text-indigo-300" />}
+            {theme === "sage" && <Sparkles className="w-3.5 h-3.5 text-emerald-300" />}
+            <span className="dock-label capitalize">{theme}</span>
+          </button>
+
+          {/* Code Drawer Trigger */}
+          <button
+            onClick={() => {
+              sound.playClick(1.2);
+              onOpenCode();
+            }}
+            className="dock-btn dock-btn-code"
+            title="Get Component Code & Docs"
+            data-hover
+          >
+            <Compass className="w-3.5 h-3.5 text-amber-200" />
+            <span className="dock-label font-medium text-amber-100">Get Code</span>
+          </button>
+        </div>
+      </div>
+    </aside>
   );
 }

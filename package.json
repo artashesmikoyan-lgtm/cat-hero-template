@@ -1,14 +1,33 @@
 {
-  "name": "portfolio-hero",
+  "name": "mochi-cat-hero",
+  "version": "2.4.0",
+  "description": "Mochi — Interactive 3D Cat Hero Component & Template for 21st.dev",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "start": "node server.mjs"
   },
-  "dependencies": { "react": "^18.3.1", "react-dom": "^18.3.1" },
+  "keywords": [
+    "21st",
+    "shadcn",
+    "interactive",
+    "hero",
+    "3d",
+    "canvas",
+    "cat",
+    "react",
+    "tailwind"
+  ],
+  "author": "Artash",
+  "license": "MIT",
+  "dependencies": {
+    "lucide-react": "^1.58.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
   "devDependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
