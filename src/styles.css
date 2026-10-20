@@ -47,6 +47,22 @@ a, button {
   cursor: pointer;
 }
 
+/* Visible Focus States for Keyboard Navigation (WCAG 2.4.7 / 2.4.11) */
+:focus-visible {
+  outline: 2px solid #f59e0b;
+  outline-offset: 3px;
+}
+
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible,
+[role="tab"]:focus-visible,
+[role="radio"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #f59e0b;
+  outline-offset: 2px;
+}
+
 /* Base Hero Viewport */
 .hero {
   position: relative;
@@ -295,6 +311,13 @@ a, button {
   bottom: clamp(96px, 16vh, 160px);
   z-index: 10;
   max-width: min(580px, 46vw);
+  pointer-events: none;
+}
+
+.intro a,
+.intro button,
+.intro .badge-pill,
+.intro .spec-row {
   pointer-events: auto;
 }
 
@@ -514,6 +537,15 @@ a, button {
   backdrop-filter: blur(24px) saturate(160%);
   -webkit-backdrop-filter: blur(24px) saturate(160%);
   box-shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dock-inner::-webkit-scrollbar {
+  display: none;
 }
 
 .dock-segment {
@@ -719,7 +751,20 @@ a, button {
   animation: fadeIn 0.25s ease;
 }
 
+.modal-backdrop-dismiss {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  z-index: 1;
+}
+
 .modal-panel {
+  position: relative;
+  z-index: 2;
   width: 100%;
   max-width: 680px;
   max-height: 85vh;
@@ -916,8 +961,17 @@ a, button {
   flex-shrink: 0;
 }
 
+.props-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 .props-table {
   width: 100%;
+  min-width: 520px;
   border-collapse: collapse;
   font-size: 12.5px;
   text-align: left;
@@ -953,6 +1007,7 @@ a, button {
   .preset-btn {
     padding: 6px 10px;
     font-size: 11px;
+    min-height: 36px;
   }
   .intro {
     left: 20px;
@@ -965,9 +1020,18 @@ a, button {
   }
   .dock-container {
     bottom: 14px;
+    max-width: calc(100vw - 20px);
+    width: auto;
+  }
+  .dock-inner {
+    padding: 4px 6px;
+    gap: 4px;
   }
   .dock-btn {
+    min-height: 40px;
+    min-width: 36px;
     padding: 7px 9px;
+    justify-content: center;
   }
   .dock-label {
     display: none;
@@ -976,5 +1040,102 @@ a, button {
   .dock-btn-code .dock-label {
     display: inline;
     font-size: 11px;
+  }
+  .modal-close-btn {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 540px) {
+  .nav-bar {
+    flex-wrap: wrap;
+    gap: 8px;
+    top: 10px;
+    left: 12px;
+    right: 12px;
+  }
+  .logo-group {
+    padding: 4px 10px 4px 6px;
+  }
+  .logo-sub {
+    display: none;
+  }
+  .nav-pill {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .preset-btn {
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 6px 8px;
+  }
+  .btn-sm {
+    padding: 7px 12px;
+    font-size: 12px;
+  }
+  .intro {
+    left: 14px;
+    right: 14px;
+    bottom: 82px;
+  }
+}
+
+/* Small Viewport Height & Landscape Mobile */
+@media (max-height: 640px) {
+  html, body, #root, .hero {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+    min-height: 100svh;
+  }
+  .stage {
+    position: fixed;
+  }
+  .intro {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin: 90px 16px 100px;
+    max-width: min(600px, 92vw);
+  }
+}
+
+/* Reduced Motion Accessibility (WCAG 2.3.3 / 2.2.2) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .ambient-glow,
+  .status-dot,
+  .eye-pulse,
+  .animate-pulse,
+  .dock-btn-laser.is-active .lucide-flame {
+    animation: none !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .has-cursor, .has-cursor * {
+    cursor: auto !important;
+  }
+
+  .cursor-dot, .cursor-ring {
+    display: none !important;
   }
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Check, Copy, X, Terminal, Code2, Sparkles, BookOpen } from "lucide-react";
 import { sound } from "./sound";
 
@@ -58,6 +58,26 @@ const PROPS_DATA = [
 export default function CopyCodeModal({ isOpen, onClose }: Props) {
   const [tab, setTab] = useState<"cli" | "code" | "props">("cli");
   const [copied, setCopied] = useState(false);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        sound.playClick(0.9);
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    // Focus the close button when opened
+    setTimeout(() => {
+      closeBtnRef.current?.focus();
+    }, 50);
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -69,18 +89,26 @@ export default function CopyCodeModal({ isOpen, onClose }: Props) {
   };
 
   return (
-    <div className="modal-backdrop" onClick={onClose} role="dialog" aria-modal="true">
-      <div className="modal-panel" onClick={(e) => e.stopPropagation()}>
+    <div className="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title-heading">
+      <button
+        type="button"
+        className="modal-backdrop-dismiss"
+        onClick={onClose}
+        aria-label="Close modal overlay"
+        tabIndex={-1}
+      />
+      <div className="modal-panel">
         {/* Modal Header */}
         <div className="modal-header">
           <div className="modal-title-row">
             <div className="modal-badge">
-              <Sparkles className="w-3.5 h-3.5" />
+              <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
               <span>21st.dev Component</span>
             </div>
-            <h3 className="modal-title">Use Mochi in Your Project</h3>
+            <h3 id="modal-title-heading" className="modal-title">Use Mochi in Your Project</h3>
           </div>
           <button
+            ref={closeBtnRef}
             onClick={() => {
               sound.playClick(0.9);
               onClose();
@@ -88,40 +116,46 @@ export default function CopyCodeModal({ isOpen, onClose }: Props) {
             className="modal-close-btn"
             aria-label="Close modal"
           >
-            <X className="w-4 h-4" />
+            <X className="w-4 h-4" aria-hidden="true" />
           </button>
         </div>
 
         {/* Modal Navigation Tabs */}
-        <div className="modal-tabs">
+        <div className="modal-tabs" role="tablist" aria-label="Documentation sections">
           <button
+            role="tab"
+            aria-selected={tab === "cli"}
             onClick={() => {
               sound.playClick();
               setTab("cli");
             }}
             className={`modal-tab ${tab === "cli" ? "is-active" : ""}`}
           >
-            <Terminal className="w-3.5 h-3.5" />
+            <Terminal className="w-3.5 h-3.5" aria-hidden="true" />
             <span>CLI Install</span>
           </button>
           <button
+            role="tab"
+            aria-selected={tab === "code"}
             onClick={() => {
               sound.playClick();
               setTab("code");
             }}
             className={`modal-tab ${tab === "code" ? "is-active" : ""}`}
           >
-            <Code2 className="w-3.5 h-3.5" />
+            <Code2 className="w-3.5 h-3.5" aria-hidden="true" />
             <span>React Code</span>
           </button>
           <button
+            role="tab"
+            aria-selected={tab === "props"}
             onClick={() => {
               sound.playClick();
               setTab("props");
             }}
             className={`modal-tab ${tab === "props" ? "is-active" : ""}`}
           >
-            <BookOpen className="w-3.5 h-3.5" />
+            <BookOpen className="w-3.5 h-3.5" aria-hidden="true" />
             <span>API & Props</span>
           </button>
         </div>
@@ -129,7 +163,7 @@ export default function CopyCodeModal({ isOpen, onClose }: Props) {
         {/* Tab Content */}
         <div className="modal-body">
           {tab === "cli" && (
-            <div className="tab-pane">
+            <div className="tab-pane" role="tabpanel">
               <p className="tab-desc">
                 Install directly using the 21st.dev CLI or shadcn registry into your Next.js / Vite project:
               </p>
@@ -139,32 +173,33 @@ export default function CopyCodeModal({ isOpen, onClose }: Props) {
                   onClick={() => handleCopy(INSTALL_CMD)}
                   className="copy-btn"
                   title="Copy command"
+                  aria-label="Copy installation command"
                 >
-                  {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                  {copied ? <Check className="w-4 h-4 text-emerald-400" aria-hidden="true" /> : <Copy className="w-4 h-4" aria-hidden="true" />}
                   <span>{copied ? "Copied" : "Copy"}</span>
                 </button>
               </div>
 
               <div className="feature-grid">
                 <div className="feature-item">
-                  <div className="feature-dot" />
+                  <div className="feature-dot" aria-hidden="true" />
                   <div>
                     <strong className="block text-white text-xs font-semibold">Zero Three.js Overhead</strong>
-                    <span className="text-white/60 text-xs">Lightweight frame-stepping canvas (~48KB runtime)</span>
+                    <span className="text-white/70 text-xs">Lightweight frame-stepping canvas (~48KB runtime)</span>
                   </div>
                 </div>
                 <div className="feature-item">
-                  <div className="feature-dot" />
+                  <div className="feature-dot" aria-hidden="true" />
                   <div>
                     <strong className="block text-white text-xs font-semibold">Native Audio Synthesis</strong>
-                    <span className="text-white/60 text-xs">Web Audio API purrs & meows with 0 external sound files</span>
+                    <span className="text-white/70 text-xs">Web Audio API purrs & meows with 0 external sound files</span>
                   </div>
                 </div>
                 <div className="feature-item">
-                  <div className="feature-dot" />
+                  <div className="feature-dot" aria-hidden="true" />
                   <div>
                     <strong className="block text-white text-xs font-semibold">Fluid 60 FPS Tracking</strong>
-                    <span className="text-white/60 text-xs">Retina-ready 2x DPR with smooth spring damping</span>
+                    <span className="text-white/70 text-xs">Retina-ready 2x DPR with smooth spring damping</span>
                   </div>
                 </div>
               </div>
@@ -172,45 +207,48 @@ export default function CopyCodeModal({ isOpen, onClose }: Props) {
           )}
 
           {tab === "code" && (
-            <div className="tab-pane">
+            <div className="tab-pane" role="tabpanel">
               <div className="code-box-header">
-                <span className="text-xs text-white/60 font-mono">components/MochiCat.tsx</span>
+                <span className="text-xs text-white/70 font-mono">components/MochiCat.tsx</span>
                 <button
                   onClick={() => handleCopy(COMPONENT_SNIPPET)}
                   className="copy-btn"
+                  aria-label="Copy component code"
                 >
-                  {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                  {copied ? <Check className="w-4 h-4 text-emerald-400" aria-hidden="true" /> : <Copy className="w-4 h-4" aria-hidden="true" />}
                   <span>{copied ? "Copied" : "Copy"}</span>
                 </button>
               </div>
-              <pre className="code-pre">
+              <pre className="code-pre" tabIndex={0} aria-label="Component source code snippet">
                 <code>{COMPONENT_SNIPPET}</code>
               </pre>
             </div>
           )}
 
           {tab === "props" && (
-            <div className="tab-pane">
-              <table className="props-table">
-                <thead>
-                  <tr>
-                    <th>Prop</th>
-                    <th>Type</th>
-                    <th>Default</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {PROPS_DATA.map((p) => (
-                    <tr key={p.name}>
-                      <td className="font-mono text-amber-200">{p.name}</td>
-                      <td className="font-mono text-white/70">{p.type}</td>
-                      <td className="font-mono text-white/50">{p.default}</td>
-                      <td className="text-white/80">{p.desc}</td>
+            <div className="tab-pane" role="tabpanel">
+              <div className="props-table-wrapper" tabIndex={0} role="region" aria-label="Component Props Table">
+                <table className="props-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Prop</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Default</th>
+                      <th scope="col">Description</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {PROPS_DATA.map((p) => (
+                      <tr key={p.name}>
+                        <td className="font-mono text-amber-200">{p.name}</td>
+                        <td className="font-mono text-white/80">{p.type}</td>
+                        <td className="font-mono text-white/70">{p.default}</td>
+                        <td className="text-white/90">{p.desc}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           )}
         </div>

@@ -54,16 +54,16 @@ export default function FloatingDock({
               title={`${m.label} Mood: ${m.desc}`}
               data-hover
             >
-              <span className="dock-emoji">{m.icon}</span>
+              <span className="dock-emoji" aria-hidden="true">{m.icon}</span>
               <span className="dock-label">{m.label}</span>
             </button>
           ))}
         </div>
 
-        <div className="dock-divider" />
+        <div className="dock-divider" aria-hidden="true" />
 
         {/* Action Buttons: Laser, Pet, Sound */}
-        <div className="dock-segment">
+        <div className="dock-segment" role="group" aria-label="Cat Interactions">
           {/* Laser Pointer Mode */}
           <button
             onClick={() => {
@@ -72,9 +72,10 @@ export default function FloatingDock({
             }}
             className={`dock-btn dock-btn-laser ${isLaser ? "is-active" : ""}`}
             title="Toggle Laser Pointer [L]"
+            aria-pressed={isLaser}
             data-hover
           >
-            <Flame className={`w-3.5 h-3.5 ${isLaser ? "text-red-400 animate-pulse" : ""}`} />
+            <Flame className={`w-3.5 h-3.5 ${isLaser ? "text-red-400 animate-pulse" : ""}`} aria-hidden="true" />
             <span className="dock-label">Laser [L]</span>
           </button>
 
@@ -85,9 +86,10 @@ export default function FloatingDock({
             }}
             className="dock-btn dock-btn-pet"
             title="Pet Mochi [Space]"
+            aria-label="Pet Mochi"
             data-hover
           >
-            <Heart className="w-3.5 h-3.5 text-rose-400 group-hover:scale-125 transition-transform" />
+            <Heart className="w-3.5 h-3.5 text-rose-400 active:scale-125 transition-transform" aria-hidden="true" />
             <span className="dock-label">Pet</span>
           </button>
 
@@ -98,18 +100,20 @@ export default function FloatingDock({
             }}
             className={`dock-btn ${soundEnabled ? "is-active" : ""}`}
             title={soundEnabled ? "Mute audio [M]" : "Unmute audio [M]"}
+            aria-pressed={soundEnabled}
+            aria-label={soundEnabled ? "Mute sound effects" : "Unmute sound effects"}
             data-hover
           >
             {soundEnabled ? (
-              <Volume2 className="w-3.5 h-3.5 text-amber-300" />
+              <Volume2 className="w-3.5 h-3.5 text-amber-300" aria-hidden="true" />
             ) : (
-              <VolumeX className="w-3.5 h-3.5 opacity-50" />
+              <VolumeX className="w-3.5 h-3.5 opacity-50" aria-hidden="true" />
             )}
             <span className="dock-label">{soundEnabled ? "FX On" : "Muted"}</span>
           </button>
         </div>
 
-        <div className="dock-divider" />
+        <div className="dock-divider" aria-hidden="true" />
 
         {/* Theme & Code */}
         <div className="dock-segment">

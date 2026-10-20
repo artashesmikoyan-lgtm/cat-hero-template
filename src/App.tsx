@@ -148,6 +148,7 @@ export default function App() {
             }}
             className={`preset-btn ${useCase === "showcase" ? "is-active" : ""}`}
             title="Component Showcase Preview"
+            aria-pressed={useCase === "showcase"}
             data-hover
           >
             Showcase
@@ -159,6 +160,7 @@ export default function App() {
             }}
             className={`preset-btn ${useCase === "saas" ? "is-active" : ""}`}
             title="SaaS Hero Landing Page Preset"
+            aria-pressed={useCase === "saas"}
             data-hover
           >
             SaaS Hero
@@ -170,6 +172,7 @@ export default function App() {
             }}
             className={`preset-btn ${useCase === "portfolio" ? "is-active" : ""}`}
             title="Creative Portfolio Preset"
+            aria-pressed={useCase === "portfolio"}
             data-hover
           >
             Portfolio
@@ -244,6 +247,7 @@ export default function App() {
                       return next;
                     });
                   }}
+                  aria-pressed={isLaser}
                   data-hover
                 >
                   <Flame className={`w-4 h-4 ${isLaser ? "text-red-400" : "text-amber-300"}`} />
